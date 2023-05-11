@@ -32,7 +32,8 @@
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // verifica se todos os campos estão preenchidos
                 if (empty($_POST["nome_part"]) || empty($_POST["email_part"])) {
-                    echo "<div style='background-color: red; color: white; padding: 5px;'>Por favor, preencha todos os campos.</div>";
+                    echo "<div id='msg' style='background-color: red; color: white; padding: 5px; margin-top: 10px;border-radius: 10px;padding: 5px;text-align: center;font-weight: bold;'>Por favor, preencha todos os campos.</div>";
+                    echo "<script>setTimeout(function() { document.getElementById('msg').style.display = 'none'; }, 5000);</script>";
                 } else {
                     $nome_part = $_POST['nome_part'];
                     $tel_part = !empty($_POST['tel_part']) ? $_POST['tel_part'] : null;
@@ -54,16 +55,20 @@
                     $sql = "SELECT * FROM Participante WHERE Email_part = '$email_part'";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
-                        echo "<div style='background-color: red; color: white; padding: 5px;'>O e-mail inserido já existe no banco de dados.</div>";
+                        echo "<div id='msg' style='background-color: red;color: white;margin-top: 10px;border-radius: 10px;padding: 5px;text-align: center;font-weight: bold;'>O e-mail inserido já existe no banco de dados.</div>";
+                        echo "<script>setTimeout(function() { document.getElementById('msg').style.display = 'none'; }, 5000);</script>";
                     } else {
                         // Monta a query de inserção
                         $query = "INSERT INTO Participante (Nome_part, Tel_part, Email_part) VALUES ('$nome_part', '$tel_part', '$email_part')";
 
                         if ($conn->query($query) === TRUE) {
-                            echo "<div style='background-color: green; color: white; padding: 5px;'>Participante cadastrado com sucesso.</div>";
+                            header("Location: " . $_SERVER["PHP_SELF"]);
+                            exit();
                         } else {
-                            echo "<div style='background-color: red; color: white; padding: 5px;'>Erro ao cadastrar participante: " . $conn->error . "</div>";
+                            echo "<div id='msg' style='background-color: red; color: white; padding: 5px; margin-top: 10px;border-radius: 10px;padding: 5px;text-align: center;font-weight: bold;'>Erro ao cadastrar participante: " . $conn->error . "</div>";
+                            echo "<script>setTimeout(function() { document.getElementById('msg').style.display = 'none'; }, 5000);</script>";
                         }
+                        
                     }
                     $conn->close();
                 }
@@ -75,10 +80,10 @@
             <h1>Consulta Participante</h1>
             <form method="POST" action="">
                 <label for="nome_part">Nome do participante:</label>
-                <input type="text" id="nome_part" name="nome_part" placeholder="Digite o nome do participante">
+                <input required type="text" id="nome_part" name="nome_part" placeholder="Digite o nome do participante">
                 <br><br>
                 <label for="email_part">Email do participante:</label>
-                <input type="text" id="email_part" name="email_part" placeholder="Digite o email do participante">
+                <input  type="text" id="email_part" name="email_part" placeholder="Digite o email do participante">
                 <br><br>
                 <input type="submit" value="Consultar">
             </form>
@@ -117,7 +122,8 @@
                     }
                     echo "</table>";
                 } else {
-                    echo "Nenhum resultado encontrado.";
+                    echo "<div id='msg' style='background-color: red; color: white; padding: 5px; margin-top: 10px;border-radius: 10px;padding: 5px;text-align: center;font-weight: bold;'>Erro ao cadastrar participante: " . $conn->error . "</div>";
+                    echo "<script>setTimeout(function() { document.getElementById('msg').style.display = 'none'; }, 5000);</script>";;
                 }
 
                 $conn->close();

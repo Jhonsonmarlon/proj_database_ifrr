@@ -4,11 +4,28 @@
     padding: 0;
 }
 
+:root {
+    --text-color: white;
+    --bg-url: linear-gradient(
+        168deg,
+        rgb(37, 101, 125) 0%,
+        rgb(172, 172, 213) 40%,
+        rgb(216, 148, 30) 100%
+      )
+      fixed;
+    --stroke-color: rgba(255, 255, 255, 0.5);
+    --surface-color: rgba(255, 255, 255, 0.05);
+    --surface-color-hover: rgba(0, 0, 0, 0.02);
+    --highlight-color: rgba(255, 255, 255, 0.2);
+    --switch-bg-url: url(../database-ifrr/assets/moon-stars.svg);
+  }
+
 .container {
+    background: var(--bg-url);
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    align-items: stretch;
     width: 100%;
     height: 100vh;
     padding: 20px;
