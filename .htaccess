@@ -1,0 +1,8 @@
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW PWPROTECTID:aUdtORi1n7
+AuthType Basic
+AuthName "Restricted Access"
+AuthUserFile /home/u413736887/domains/jhonsonmarlon.com.br/public_html/database-ifrr/.htpasswd
+Require valid-user
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE aUdtORi1n7:PWPROTECTID
+
